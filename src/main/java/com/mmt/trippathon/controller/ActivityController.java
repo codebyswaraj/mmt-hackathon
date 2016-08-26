@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.javalite.activejdbc.Base;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,9 +18,12 @@ import com.mmt.trippathon.model.City;
 @RestController
 public class ActivityController {
 
+	@Value(value = "${jdbc.url}")
+	private String jdbcUrl;
+
 	@RequestMapping(value = "/load", method = RequestMethod.GET)
 	public @ResponseBody List<ActivityResponse> loadData() {
-		Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://172.16.43.125/hackathon", "root", "root");
+		Base.open("com.mysql.jdbc.Driver", jdbcUrl, "root", "root");
 		City c = City.findById(1);
 		List<ActivityResponse> list = new ArrayList<ActivityResponse>();
 		ActivityResponse response = new ActivityResponse(12, c.getString("name"), Arrays.asList("test", "value"));
