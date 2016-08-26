@@ -1,17 +1,17 @@
 package com.mmt.trippathon.provider.impl;
 
 import com.mmt.trippathon.dao.ActivitySearchDao;
-import com.mmt.trippathon.provider.DataProvider;
+import com.mmt.trippathon.provider.DataLoader;
 
-public class FactualDataProvider implements DataProvider {
+public class FactualDataLoader implements DataLoader {
 
 	private ActivitySearchDao activitySearchDao;
 
-	public FactualDataProvider() {
+	public FactualDataLoader() {
 
 	}
 
-	public FactualDataProvider(ActivitySearchDao activitySearchDao) {
+	public FactualDataLoader(ActivitySearchDao activitySearchDao) {
 		super();
 		this.activitySearchDao = activitySearchDao;
 	}
