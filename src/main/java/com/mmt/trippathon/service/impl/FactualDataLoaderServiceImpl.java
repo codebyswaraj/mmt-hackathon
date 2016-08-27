@@ -1,37 +1,37 @@
 package com.mmt.trippathon.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import com.mmt.trippathon.dao.ActivitySearchDao;
 import com.mmt.trippathon.model.Activity;
-import com.mmt.trippathon.model.City;
+import com.mmt.trippathon.model.Country;
 import com.mmt.trippathon.provider.DataLoader;
-import com.mmt.trippathon.service.DataLoaderService;
+import com.mmt.trippathon.provider.impl.FactualDataLoader;
+import com.mmt.trippathon.threadpool.ActivityThreadPool;
 
-@Service
-public class FactualDataLoaderServiceImpl implements DataLoaderService {
+public class FactualDataLoaderServiceImpl {
 
-	@Autowired
 	private ActivitySearchDao activitySearchDao;
 
-	@Override
-	public void loadDataToDB(Long sourceId) {
+	private ActivityThreadPool activityThreadPool;
 
-		List<City> cities = activitySearchDao.getCityList();
+	public FactualDataLoaderServiceImpl(ActivitySearchDao activitySearchDao, ActivityThreadPool activityThreadPool) {
+		super();
+		this.activitySearchDao = activitySearchDao;
+		this.activityThreadPool = activityThreadPool;
+	}
+
+	public void loadActivityPerCountry(Long sourceId) {
+
+		List<Country> countryList = activitySearchDao.getCountryList();
 		List<Activity> activities = activitySearchDao.getActivityList();
-		List<DataLoader> runnables = new ArrayList<>();
 		activities.forEach(activity -> {
-			int offset = 0;
-			while (offset < cities.size()) {
-
-			}
+			countryList.forEach(country -> {
+				DataLoader loader = new FactualDataLoader(activitySearchDao, activity.getString("name"),
+						country.getString("code"));
+				activityThreadPool.getExecutor().execute(loader);
+			});
 		});
-
 	}
 
 }

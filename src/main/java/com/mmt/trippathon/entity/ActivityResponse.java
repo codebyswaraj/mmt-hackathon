@@ -10,7 +10,7 @@ public class ActivityResponse implements Serializable {
 
 	private static final long serialVersionUID = -4871868377464975006L;
 
-	private Integer month;
+	private List<Integer> month;
 	private String city;
 	private List<String> activity;
 
@@ -18,18 +18,19 @@ public class ActivityResponse implements Serializable {
 
 	}
 
-	public ActivityResponse(Integer month, String city, List<String> activity) {
+	public ActivityResponse(List<Integer> month, String city, List<String> activity) {
 		super();
 		this.month = month;
 		this.city = city;
 		this.activity = activity;
 	}
 
-	public Integer getMonth() {
+
+	public List<Integer> getMonth() {
 		return month;
 	}
 
-	public void setMonth(Integer month) {
+	public void setMonth(List<Integer> month) {
 		this.month = month;
 	}
 

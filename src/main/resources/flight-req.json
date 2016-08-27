@@ -1,0 +1,12 @@
+{  
+   "fromCity":#fromCity,
+   "toCity":#toCity,
+   "tripType":"O",
+   "tripTypeDup":"O",
+   "deptDate":#departDate,
+   "noOfAdlts":1,
+   "noOfChd":0,
+   "noOfInfnt":0,
+   "classType":"E",
+   "lob":"Flight"
+}
